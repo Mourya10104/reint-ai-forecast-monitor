@@ -8,10 +8,10 @@ import { format, subDays } from "date-fns";
 import { Loader2, AlertCircle } from "lucide-react";
 
 type DataPoint = {
-  startTime: str;
+  startTime: string;
   actual_generation: number | null;
   forecasted_generation: number | null;
-  [key: string]: any; // Allow computed fields like delta
+  [key: string]: any;
 };
 
 export default function DashboardComponent() {
@@ -34,7 +34,7 @@ export default function DashboardComponent() {
         throw new Error(`Error: ${response.statusText}`);
       }
       const json = await response.json();
-      
+
       // Compute Delta (Error) = Forecast - Actual for the tooltip
       const processedData = json.data.map((d: any) => ({
         ...d,
@@ -58,19 +58,19 @@ export default function DashboardComponent() {
 
   return (
     <div className="space-y-6">
-      <Controls 
+      <Controls
         startDate={startDate} setStartDate={setStartDate}
         endDate={endDate} setEndDate={setEndDate}
         horizon={horizon} setHorizon={setHorizon}
       />
-      
+
       <div className="bg-[#111] border border-[#222] rounded-xl p-6 shadow-2xl relative">
         {loading && (
           <div className="absolute inset-0 bg-[#0a0a0ae6] flex items-center justify-center rounded-xl z-10 transition-opacity">
             <Loader2 className="w-8 h-8 animate-spin text-actual" />
           </div>
         )}
-        
+
         {error ? (
           <div className="flex flex-col items-center justify-center py-20 text-red-400">
             <AlertCircle className="w-12 h-12 mb-4 opacity-50" />
