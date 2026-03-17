@@ -28,7 +28,7 @@ export default function DashboardComponent() {
     setError(null);
     try {
       const response = await fetch(
-        `http://localhost:8000/api/monitor?start_date=${startDate}&end_date=${endDate}&horizon_hours=${horizon}`
+        `${process.env.NEXT_PUBLIC_API_URL || 'https://reint-ai-forecast-monitor-production.up.railway.app'}/api/monitor?start_date=${startDate}&end_date=${endDate}&horizon_hours=${horizon}`
       );
       if (!response.ok) {
         throw new Error(`Error: ${response.statusText}`);
